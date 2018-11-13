@@ -38,6 +38,74 @@
 
 (cons-all 1 '((2 3) (2 4) (3 5)))
 ; expect ((1 2 3) (1 2 4) (1 3 5))
+
+(define x (* 10 10))
+; expect x
+
+((define y (+ 1 2)) 3)
+; expect Error
+
+((define y (1 2)) 3)
+; expect Error
+
+(define x (/ 1 0))
+
+; expect Error
+x
+; expect 100
+y
+; expect 3
+
+;PROBLEM 7
+'i-am-string
+;expect i-am-string
+
+'(1 (2 (3 . 4)))
+; expect (1 (2 (3 . 4)))
+
+'(5 (4 three . (2 . 1)))
+;expect (5 (4 three 2 . 1)) 
+
+(cons 'cons cons)
+;expect (cons . #[cons])
+
+(car '(yes no))
+; expect yes
+
+(cdr '(yes no))
+; expect (no)
+
+(eval  '(+ 1 2))
+;expect 3
+
+`(1 ,(+ 1 1) 3)
+;expect (1 2 3)
+
+;'PROBLEM-8
+
+(begin (+ 2 3) (+ 5 6))
+;expect 11
+
+(define x (begin (+ 1 1) (newline) (+ 2 3)))
+;expect x
+
+(+ x 3)
+8
+scm> (begin (print 3) '(+ 2 3))
+3
+(+ 2 3)
+
+; 'PROBLEM-12'
+(define foo (lambda (x y) (+ x y)))
+;expect foo
+(define (foo x y) (+ x y))
+;expect foo
+
+(or 7 (/ 1 0))
+;expect 7
+
+(and 7 (/ 1 0))
+;expect Error
 ; END PROBLEM 0
 
 ;;; These are examples from several sections of "The Structure
