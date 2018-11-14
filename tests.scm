@@ -84,6 +84,44 @@ w
 (begin () (display (ordered? '(5 9 10))) (define x 2)  x)
 ; expect #t2
 
+(define (fact x) (if (= x 0) 1 (* x (fact (- x 1))) ) )
+(fact 4)
+; expect 24
+
+(or (and 1 2 3 (> 0 1)) (and (fact 5) 2 #t))
+; expect #t
+
+(define (compare0 x)
+(cond
+((= x 0) 'zero)
+((> x 0) 'higher)
+((< x 0) 'lower)
+)
+)
+
+(compare0 0)
+; expect zero
+
+(compare0 1)
+; expect  higher
+
+(compare0 (- 1))
+; expect lower
+
+(compare0 'a)
+; expect Error
+
+(define x 'hi)
+(define y (fact 2))
+(let ((x (fact 3))
+           (y (* y 10)))
+       (list x y))
+; expect (6 20)
+
+(list x (fact x))
+; expect Error
+
+
 ;PROBLEM 7
 'i-am-string
 ;expect i-am-string
