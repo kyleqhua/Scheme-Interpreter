@@ -33,6 +33,8 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
         # BEGIN PROBLEM 5
         current_operator = scheme_eval(first,env)
         check_procedure(current_operator)
+        if isinstance(current_operator,MacroProcedure):
+            return scheme_eval(MacroProcedure.apply_macro(current_operator,rest,env),env)
         args = rest.map(lambda x: scheme_eval(x,env))
         return scheme_apply(current_operator,args,env)
 
@@ -368,7 +370,7 @@ def do_define_macro(expressions, env):
     if scheme_symbolp(target):
         check_form(expressions, 2, 2)
         # BEGIN PROBLEM 6
-        value = scheme_eval(expressions.second.first, env)
+        value = scheme_eval(expressions.second.first, env, True)
         env.define(target, value)
         return target
         # END PROBLEM 6
