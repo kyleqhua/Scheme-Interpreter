@@ -30,6 +30,9 @@
 (caddr '(1 2 3 4))
 ; expect 3
 
+(caddr (1 2 3 4))
+; expect Error
+
 (define (cons-all first rests)
   (if (null? rests) nil
   (cons (cons first (car rests)) (cons-all first (cdr rests)))
@@ -39,22 +42,47 @@
 (cons-all 1 '((2 3) (2 4) (3 5)))
 ; expect ((1 2 3) (1 2 4) (1 3 5))
 
-(define x (* 10 10))
+(even? 4)
+; expect #t
+
+(define x (* (+ 2 3) (- 7 4) (* 2 3)) )
+(+ x 12)
+; expect 102
+
+x
+; expect 90
+
+(define x 0)
 ; expect x
 
-((define y (+ 1 2)) 3)
+((define x (+ x 1)) 2)
 ; expect Error
 
-((define y (1 2)) 3)
-; expect Error
-
-(define x (/ 1 0))
-
-; expect Error
 x
-; expect 100
+; expect 1
+
+(define y 0)
 y
-; expect 3
+; expect 0
+
+(y 1 0)
+; expect Error
+
+(define w (+ y x) 23)
+; expect Error
+
+(define w (* (+ y x) 23))
+w
+; expect 23
+
+'(cons (1 , 2))
+; expect (cons (1 (unquote 2)))
+
+(eval '(cons (1 , 2)))
+; expect Error
+
+(begin () (display (ordered? '(5 9 10))) (define x 2)  x)
+; expect #t2
 
 ;PROBLEM 7
 'i-am-string
